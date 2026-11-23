@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                                                                |
+| \\      /  F ield         OpenFOAM: The Open Source CFD Toolbox          |
+|  \\    /   O peration     Version:  v2506                                |
+|   \\  /    A nd           Website:  www.openfoam.com                     |
+|    \\/     M anipulation                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     reactingTwoPhaseEulerFoam;
+
+startFrom       latestTime; // Permite retomar a simulação de onde parou em caso de queda
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         200;
+
+deltaT          0.001;
+
+writeControl    adjustableRunTime; // Sincroniza o passo de tempo para gravar exatamente a cada 0.5s
+
+writeInterval   1;
+
+purgeWrite      0;          // Desativado (0): Salva TODAS as pastas de tempo para o vídeo
+
+writeFormat     binary;     // Mantido em binary para escrita rápida e arquivos compactos
+
+writePrecision  10;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+// --- Aceleração do Passo de Tempo ---
+adjustTimeStep  yes;
+
+maxCo           0.8;        // Aumentado de 0.5 para 0.8 para saltos maiores de tempo
+maxAlphaCo      0.5;        // Mantido em 0.5 para garantir estabilidade da interface multifásica
+maxDeltaT       0.01;       // Elevado de 0.005 para 0.01s (dobra a velocidade máxima possível)
+
+// ************************************************************************* //
